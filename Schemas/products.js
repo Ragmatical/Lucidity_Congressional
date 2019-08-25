@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var model = mongoose.model('userdata',new mongoose.Schema({
-    username: String
-    , 
+    service: String
+    , free: Boolean
 }));
 
 exports.getModel = function() {

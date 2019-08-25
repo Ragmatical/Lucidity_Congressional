@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var model = mongoose.model('userdata',new mongoose.Schema({
-    Premium: Buffer
-    , Free: Buffer
+    tokenCount: String
+    , tokenValue: String
 }));
 
 exports.getModel = function() {

@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var model = mongoose.model('userdata',new mongoose.Schema({
-    tokenCount: String
-    , tokenValue: String
-    , 
+    AssignmentName: String
+    , Completed: String
 }));
 
 exports.getModel = function() {

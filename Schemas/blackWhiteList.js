@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var model = mongoose.model('userdata',new mongoose.Schema({
-    AssignmentName: String
-    , 
+    url: String
+    , type: String
 }));
 
 exports.getModel = function() {
