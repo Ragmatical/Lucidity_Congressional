@@ -10,7 +10,7 @@ var model = mongoose.model('userdata',new mongoose.Schema({
     , dateCreated: Date
     , dateUpdated: Date
     }
-    , {usePushEach: true, collection: 'userdatas'}
+    , {usePushEach: true, collection: 'users'}
 ));
 
 exports.getModel = function() {
