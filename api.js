@@ -26,7 +26,9 @@ var app = express()
 
 app.set('trust proxy', true);
 
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors(corsOptions));
+
 
 app.get('/todo/:user/:taskid', (req, res, next) => {
 	console.log(req.params)
@@ -48,25 +50,9 @@ app.patch('/todo/:user/:taskid', (req, res, next) => {
 	res.send('OK')
 })
 
-app.use(bodyParser.json({limit:'50mb'}));
-app.use(cors(corsOptions));
-
-
-app.get('/analytics/:customerid', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}, id: req.params.customerid})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send("oops");
-			return alldata.map(d => `<div>${d.site}</div>`)
-		})
-})
-
 app.get('/', (req, res, next) => {
 	console.log('home');
-	var geo = geoip.lookup(req.ip);
+	var geo = geoip.lookup(req.ip) || {};
 	var ua = parser(req.headers['user-agent']);
 	var date = new Date();
 	var site = req.query.site;
