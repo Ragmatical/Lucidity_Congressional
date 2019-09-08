@@ -25,6 +25,7 @@ var app = express()
 ;
 
 app.set('trust proxy', true);
+
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors(corsOptions));
 
@@ -48,12 +49,33 @@ app.patch('/changepassword',()=>{
 })
 
 app.patch('/changeemail',()=>{
+	console.log(req.params)
+	res.send('OK')
+})
+
+app.get('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
+	res.send('OK')
+})
+
+app.post('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params, req.body)
+	res.send('OK')
+})
+
+app.delete('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
+	res.send("OK")
+})
+
+app.patch('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
 	res.send('OK')
 })
 
 app.get('/', (req, res, next) => {
 	console.log('home');
-	var geo = geoip.lookup(req.ip);
+	var geo = geoip.lookup(req.ip) || {};
 	var ua = parser(req.headers['user-agent']);
 	var date = new Date();
 	var site = req.query.site;
