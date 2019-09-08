@@ -27,17 +27,30 @@ var app = express()
 app.set('trust proxy', true);
 
 app.use(cors(corsOptions));
-app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send(err);
-			return alldata.map(d => `<div>${d.site}</div>`);
-		})
+
+app.get('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
+	res.send('OK')
 })
+
+app.post('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params, req.body)
+	res.send('OK')
+})
+
+app.delete('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
+	res.send("OK")
+})
+
+app.patch('/todo/:user/:taskid', (req, res, next) => {
+	console.log(req.params)
+	res.send('OK')
+})
+
+app.use(bodyParser.json({limit:'50mb'}));
+app.use(cors(corsOptions));
+
 
 app.get('/analytics/:customerid', (req, res, next) => {
 	userdata
