@@ -14,7 +14,7 @@ var express = require('express')
 ;
 
 var app = express()
-	, port = parseInt(process.env.PORT || '8080')
+	, port = parseInt(process.env.PORT || '3007')
 	, server = http.createServer(app)
 	, corsOptions = {
       origin: '*',
