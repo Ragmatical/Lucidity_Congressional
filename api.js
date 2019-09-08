@@ -25,30 +25,30 @@ var app = express()
 ;
 
 app.set('trust proxy', true);
-
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors(corsOptions));
-app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send(err);
-			return alldata.map(d => `<div>${d.site}</div>`);
-		})
+
+app.post('/login/:user/:name', (req, res, next) => {
+	console.log(req.params, req.body)
+	res.send("OK")
 })
 
-app.get('/analytics/:customerid', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}, id: req.params.customerid})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send("oops");
-			return alldata.map(d => `<div>${d.site}</div>`)
-		})
+app.post('/signout/:user/:name', (req, res, next) => {
+	console.log(req.params, req.body)
+	res.send("OK")
+})
+
+app.post('/signup/:user', (req, res, next) => {
+	console.log(req.params, req.body)
+	res.send("OK")
+})
+
+app.patch('/changepassword',()=>{
+	res.send('OK')
+})
+
+app.patch('/changeemail',()=>{
+	res.send('OK')
 })
 
 app.get('/', (req, res, next) => {
