@@ -26,34 +26,30 @@ var app = express()
 
 app.set('trust proxy', true);
 
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors(corsOptions));
-app.get('/wepoipoiepoipourpowasdlkjfalkjajiepururgkaowifnjkdjdjdjasdskjelifasdjkznkdjkfjliseghaslkdjlfkjeiznkdknsi', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send(err);
-			return alldata.map(d => `<div>${d.site}</div>`);
-		})
+
+app.get('/todo/:user/:name', (req, res, next) => {
+	console.log(req.params);
+	res.send('OK')
 })
 
-app.get('/analytics/:customerid', (req, res, next) => {
-	userdata
-		.find({site: {$ne: null}, id: req.params.customerid})
-		.sort({_id: -1})
-		.select('site')
-		.limit(100)
-		.exec((err, alldata) => {
-			if(err) return res.send("oops");
-			return alldata.map(d => `<div>${d.site}</div>`)
-		})
+app.post('/todo/:user/:name', (req, res, next) => {
+	console.log(req.params, req.body);
+	res.send('OK')
+})
+
+app.patch('/changepassw')
+
+app.delete('/todo/:user/:name/:taskid')
+
+app.post('/login', (req, res, next) => {
+	res.send('OK')
 })
 
 app.get('/', (req, res, next) => {
 	console.log('home');
-	var geo = geoip.lookup(req.ip);
+	var geo = geoip.lookup(req.ip) || {};
 	var ua = parser(req.headers['user-agent']);
 	var date = new Date();
 	var site = req.query.site;
