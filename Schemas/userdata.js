@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var model = mongoose.model('data', new mongoose.Schema({
+var model = mongoose.model('userdata', new mongoose.Schema({
 	site: {type: String}
 	, subject: {type: String}
 	, sim: {type: Number}

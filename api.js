@@ -11,6 +11,8 @@ var express = require('express')
 	, parser = require('ua-parser-js')
 	, geoip = require('geoip-lite')
 	, userdata = require('./schemas/userdata.js').getModel()
+	, user = require('./schemas/users.js').getModel()
+	, task = require('./schemas/todos.js').getModel()
 ;
 
 var app = express()
@@ -40,8 +42,19 @@ app.post('/signout/:user/:name', (req, res, next) => {
 })
 
 app.post('/signup/:user', (req, res, next) => {
-	console.log(req.params, req.body)
-	res.send("OK")
+	const newuser = new user({
+		username: req.params.user
+		, password: req.body.password
+		, email: req.body.email
+		, phonenumber: req.body.phonenumber
+		, stripeCustomerId: 1
+		, dateCreated: new Date()
+		, dateUpdated: new Date()
+	})
+	newuser.save((err) => {
+		if(err) res.send(err)
+		else res.send("OK CREATED")
+	})
 })
 
 app.patch('/changepassword',()=>{
@@ -59,8 +72,17 @@ app.get('/todo/:user/:taskid', (req, res, next) => {
 })
 
 app.post('/todo/:user/:taskid', (req, res, next) => {
-	console.log(req.params, req.body)
-	res.send('OK')
+	const newtask = new task({
+		assignmentName: req.params.taskid
+		, completed: false
+		, description: req.body.description
+		, dateCreated: new Date()
+		, dateUpdated: new Date()
+	})
+	newtask.$__save((err) => {
+		if(err) res.send(err)
+		else res.send("TASK CREATED")
+	})
 })
 
 app.delete('/todo/:user/:taskid', (req, res, next) => {
