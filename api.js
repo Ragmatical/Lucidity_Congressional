@@ -10,7 +10,9 @@ var express = require('express')
 	, configs = require('./config.js')
 	, parser = require('ua-parser-js')
 	, geoip = require('geoip-lite')
+	, crypto = require('crypto')
 	, userdata = require('./schemas/userdata.js').getModel()
+	, user = require("./schemas/users.js").getModel()
 ;
 
 var app = express()
@@ -40,8 +42,25 @@ app.post('/signout/:user/:name', (req, res, next) => {
 })
 
 app.post('/signup/:user', (req, res, next) => {
-	console.log(req.params, req.body)
-	res.send("OK")
+	const salt = crypto.randomBytes(128).toString('base64');
+	crypto.pbkdf2(req.body.password, salt, 10000, 256, 'sha256', (err, hash) =>{
+		if(err) return res.send(err)
+		const newuser = new user({
+			username: req.params.user
+			, password: hash.toString('base64')
+			, salt: salt
+			, email: req.body.email
+			, phonenumber: req.body.phonenumber
+			, stripeCustomerId:1
+			, dateCreated: new Date()
+			, dateUpdated: new Date()
+		})
+		newuser.save((err)=>{
+			if(err) res.send(err);
+			else res.send('OK created')
+		})
+	})
+	
 })
 
 app.patch('/changepassword',()=>{
