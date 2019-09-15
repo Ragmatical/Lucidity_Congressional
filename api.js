@@ -12,7 +12,12 @@ var express = require('express')
 	, geoip = require('geoip-lite')
 	, crypto = require('crypto')
 	, userdata = require('./schemas/userdata.js').getModel()
+<<<<<<< HEAD
 	, user = require("./schemas/users.js").getModel()
+=======
+	, user = require('./schemas/users.js').getModel()
+	, task = require('./schemas/todos.js').getModel()
+>>>>>>> 7e8584e9b1b52623917966048b9e99d89b76729b
 ;
 
 var app = express()
@@ -42,6 +47,7 @@ app.post('/signout/:user/:name', (req, res, next) => {
 })
 
 app.post('/signup/:user', (req, res, next) => {
+<<<<<<< HEAD
 	const salt = crypto.randomBytes(128).toString('base64');
 	crypto.pbkdf2(req.body.password, salt, 10000, 256, 'sha256', (err, hash) =>{
 		if(err) return res.send(err)
@@ -61,6 +67,21 @@ app.post('/signup/:user', (req, res, next) => {
 		})
 	})
 	
+=======
+	const newuser = new user({
+		username: req.params.user
+		, password: req.body.password
+		, email: req.body.email
+		, phonenumber: req.body.phonenumber
+		, stripeCustomerId: 1
+		, dateCreated: new Date()
+		, dateUpdated: new Date()
+	})
+	newuser.save((err) => {
+		if(err) res.send(err)
+		else res.send("OK CREATED")
+	})
+>>>>>>> 7e8584e9b1b52623917966048b9e99d89b76729b
 })
 
 app.patch('/changepassword',()=>{
@@ -78,8 +99,17 @@ app.get('/todo/:user/:taskid', (req, res, next) => {
 })
 
 app.post('/todo/:user/:taskid', (req, res, next) => {
-	console.log(req.params, req.body)
-	res.send('OK')
+	const newtask = new task({
+		assignmentName: req.params.taskid
+		, completed: false
+		, description: req.body.description
+		, dateCreated: new Date()
+		, dateUpdated: new Date()
+	})
+	newtask.$__save((err) => {
+		if(err) res.send(err)
+		else res.send("TASK CREATED")
+	})
 })
 
 app.delete('/todo/:user/:taskid', (req, res, next) => {

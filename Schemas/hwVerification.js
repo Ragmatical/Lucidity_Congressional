@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var model = mongoose.model('userdata',new mongoose.Schema({
+var model = mongoose.model('hwVerfication',new mongoose.Schema({
     assignmentName: String
     , verified: Boolean
     , verifiedMethod: String

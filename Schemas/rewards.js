@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var model = mongoose.model('userdata',new mongoose.Schema({
+var model = mongoose.model('rewards',new mongoose.Schema({
     tokenValue: String
     , dateCreated: Date
     , dateUpdated: Date

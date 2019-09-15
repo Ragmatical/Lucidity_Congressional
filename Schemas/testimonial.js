@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var model = mongoose.model('userdata',new mongoose.Schema({
+var model = mongoose.model('testimonial',new mongoose.Schema({
     username: {type: mongooseModule.Schema.ObjectId, ref: 'User'}
     , text: String
     , rating: String

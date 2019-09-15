@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var model = mongoose.model('userdata',new mongoose.Schema({
+var model = mongoose.model('products',new mongoose.Schema({
     service: String
     , free: Boolean
     , dateCreated: Date

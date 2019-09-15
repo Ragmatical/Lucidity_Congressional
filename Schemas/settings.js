@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var model = mongoose.model('userdata',new mongoose.Schema({
+var model = mongoose.model('settings',new mongoose.Schema({
     name: String
     , value: [String]
     , dateCreated: Date
