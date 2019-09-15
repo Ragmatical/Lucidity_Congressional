@@ -42,6 +42,7 @@ app.post('/signout/:user/:name', (req, res, next) => {
 })
 
 app.post('/signup/:user', (req, res, next) => {
+	console.log("checkpoint")
 	const newuser = new user({
 		username: req.params.user
 		, password: req.body.password
@@ -52,7 +53,8 @@ app.post('/signup/:user', (req, res, next) => {
 		, dateUpdated: new Date()
 	})
 	newuser.save((err) => {
-		if(err) res.send(err)
+		if(err){res.send(err)
+			console.log(err)} 
 		else res.send("OK CREATED")
 	})
 })
